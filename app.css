@@ -1,0 +1,51 @@
+html {
+  box-sizing: border-box;
+}
+html,
+body {
+  font-size: 14px;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+  color: #4D4D4D;
+}
+.todo {
+  width: 250px;
+  margin: 60px auto;
+  padding: 10px 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+.todo__input {
+  font-size: 1rem;
+  line-height: 1.3rem;
+  padding: 2px 5px;
+  width: 100%;
+}
+.todo__input:focus {
+  outline: none;
+}
+.todo__items {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+.todo__item {
+  position: relative;
+  padding: 3px 0;
+}
+.todo__itemRemove {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.todo input[type="checkbox"]:checked ~ label {
+  text-decoration: line-through;
+}

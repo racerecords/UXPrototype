@@ -1,5 +1,5 @@
-var input,
-    form = document.querySelector('[data-js~="todoForm"]'),
+var form = document.querySelector('[data-js~="todoForm"]'),
+    input,
     list;
 
 ;(function() {
@@ -14,23 +14,19 @@ function addItem(event) {
     alert("Input is blank. Vader will force choke you for this!")
     }
     else {
+    noItemsMsg = document.querySelector('[data-js~="noItemsMsg"]')
+    noItemsMsg.style.display = "none";
     list = document.querySelector('[data-js~="todoItems"]');
-    if (list === null) {
-      list = document.querySelector('[data-js~="newItems"]');
-      list.innerHTML +=" <li class='todo__item'><input type='checkbox' id='" + input + "' /> <label for='" + input + "'>" + input + "</label><button value='" + input + "' class='todo__itemRemove'>&#x2717;</button></li>"
-    }
-    else {
-      list.innerHTML ="<li class='todo__item'><input type='checkbox' id='" + input + "' /> <label for='" + input + "'>" + input + "</label><button value='" + input + "' class='todo__itemRemove'>&#x2717;</button></li>"
-      list.dataset.js = "newItems"
-    }
+    makeElements()
   form.reset()
-  
-  this.buttons = document.querySelectorAll('button');
-
-  buttonList = [].slice.call(this.buttons);
-
-  buttonList.forEach(listen);
+  buttoner()
   }
+}
+
+function buttoner(){
+  this.buttons  = document.querySelectorAll('button');
+  buttonList    = [].slice.call(this.buttons);
+  buttonList.forEach(listen);
 }
 
 function listen(item, indx, arr) {
@@ -39,4 +35,33 @@ function listen(item, indx, arr) {
 
 function deleteItem(event) {
   this.parentNode.remove();
-} 
+  item = document.getElementsByClassName("todo__item")
+  if (item.length === 0) {
+    noItemsMsg.style.display = "inherit";
+  }
+}
+
+function makeElements() {
+    var li        = document.createElement("li")
+    li.className  = "todo__item"
+
+    var button        = document.createElement("button")
+    button.className  = "todo__itemRemove"
+    button.innerHTML  = "&#x2717;"
+    button.value      = input
+
+    var inputBox  = document.createElement("input")
+    inputBox.type = "checkbox"
+    inputBox.id   = input
+
+    var label       = document.createElement("label")
+    label.for       = input
+    label.innerHTML = input
+
+    var content = document.createTextNode(input)
+
+    li.appendChild(inputBox)
+    li.appendChild(label)
+    li.appendChild(button)
+    list.appendChild(li)
+}

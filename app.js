@@ -6,20 +6,19 @@ var form = document.querySelector('[data-js~="todoForm"]'),
 ;(function() {
   // add event listener to the submit action of the form
   form.addEventListener('keypress', addItem, false);
-})()
 
 // add an item to the list
 function addItem(event) {
   // event.which, event.charCode, and event.keyCode all worked here
   if (event.keyCode === 13) {
-      event.preventDefault();
+    event.preventDefault();
     // get the value from the input
     input = document.querySelector('[data-js~="todoInput"]').value;
     // if input is blank alert user else use input to add item to the list
     if (input === "") {
       alert("Input is blank. Vader will force choke you for this!")
       }
-      else {
+    else {
       // get the li of the no items message and set it's display to none
       noItemsMsg = document.querySelector('[data-js~="noItemsMsg"]')
       noItemsMsg.style.display = "none";
@@ -37,8 +36,8 @@ function addItem(event) {
 
 // make an array of buttons and loop through that array calling the listen function for each button
 function buttoner(){
-  this.buttons    = document.querySelectorAll('button');
-  var buttonList  = [].slice.call(this.buttons);
+  var buttons    = document.querySelectorAll('button');
+  var buttonList  = Array.prototype.slice.call(buttons);
   buttonList.forEach(listen);
 }
 
@@ -86,3 +85,4 @@ function makeElements(item) {
   li.appendChild(button)
   list.appendChild(li)
 }
+})();

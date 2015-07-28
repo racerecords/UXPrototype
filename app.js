@@ -5,31 +5,33 @@ var form = document.querySelector('[data-js~="todoForm"]'),
 
 ;(function() {
   // add event listener to the submit action of the form
-  form.addEventListener('submit', addItem, false);
+  form.addEventListener('keypress', addItem, false);
 })()
 
 // add an item to the list
 function addItem(event) {
-  // prevent the form from submitting to the server
-  event.preventDefault()
-  // get the value from the input
-  input = document.querySelector('[data-js~="todoInput"]').value;
-  // if input is blank alert user else use input to add item to the list
-  if (input === "") {
-    alert("Input is blank. Vader will force choke you for this!")
+  // event.which, event.charCode, and event.keyCode all worked here
+  if (event.keyCode === 13) {
+      event.preventDefault();
+    // get the value from the input
+    input = document.querySelector('[data-js~="todoInput"]').value;
+    // if input is blank alert user else use input to add item to the list
+    if (input === "") {
+      alert("Input is blank. Vader will force choke you for this!")
+      }
+      else {
+      // get the li of the no items message and set it's display to none
+      noItemsMsg = document.querySelector('[data-js~="noItemsMsg"]')
+      noItemsMsg.style.display = "none";
+      // get the ul of the items list
+      list = document.querySelector('[data-js~="todoItems"]');
+      // make all the elements need for the list item by calling it's function
+      makeElements(input)
+      // reset the form so that it will be blank without user action
+      form.reset()
+      // make a list of buttons and give each an event listener by calling it's function
+      buttoner()
     }
-    else {
-    // get the li of the no items message and set it's display to none
-    noItemsMsg = document.querySelector('[data-js~="noItemsMsg"]')
-    noItemsMsg.style.display = "none";
-    // get the ul of the items list
-    list = document.querySelector('[data-js~="todoItems"]');
-    // make all the elements need for the list item by calling it's function
-    makeElements(input)
-    // reset the form so that it will be blank without user action
-    form.reset()
-    // make a list of buttons and give each an event listener by calling it's function
-    buttoner()
   }
 }
 

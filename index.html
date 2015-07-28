@@ -10,16 +10,15 @@
         <div>
           <input class="todo__input" type="text" data-js="todoInput" placeholder="Enter task..." />
         </div>
+        <ul class="todo__items" data-js="todoItems">
+          <li data-js="noItemsMsg">
+            There are currently no tasks.
+            <br />
+            Please enter an item in the field above.
+          </li>
+        </ul>
       </form>
-      <ul class="todo__items" data-js="todoItems">
-        <li data-js="noItemsMsg">
-          There are currently no tasks.
-          <br />
-          Please enter an item in the field above.
-        </li>
-      </ul>
     </div>
-
     <script src="app.js" async></script>
   </body>
 </html>

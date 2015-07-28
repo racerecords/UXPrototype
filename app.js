@@ -3,7 +3,6 @@ var form = document.querySelector('[data-js~="todoForm"]'),
     list;
 
 ;(function() {
-
   form.addEventListener('submit', addItem, false);
 })()
 

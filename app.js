@@ -35,8 +35,8 @@ function addItem(event) {
 
 // make an array of buttons and loop through that array calling the listen function for each button
 function buttoner(){
-  this.buttons  = document.querySelectorAll('button');
-  var buttonList    = [].slice.call(this.buttons);
+  this.buttons    = document.querySelectorAll('button');
+  var buttonList  = [].slice.call(this.buttons);
   buttonList.forEach(listen);
 }
 
@@ -68,12 +68,12 @@ function makeElements(item) {
   var button        = document.createElement("button")
   button.className  = "todo__itemRemove"
   button.innerHTML  = "&#x2717;"
-  button.name      = item
+  button.name       = item
 
   // create the input. Set it's type and name
   var itemBox  = document.createElement("input")
   itemBox.type = "checkbox"
-  itemBox.name   = item
+  itemBox.name = item
 
   // create the label.  Set it's innerHTML
   var label       = document.createElement("label")

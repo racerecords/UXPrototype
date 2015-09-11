@@ -13,6 +13,11 @@ body {
 body {
   font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
   color: #4D4D4D;
+  background-image: url("1521964.jpg");
+  background-size: 100%;
+  background-position-x: 228px;
+  background-repeat: no-repeat;
+  background-color: black;
 }
 .todo {
   width: 250px;

@@ -1,9 +1,8 @@
-var form = document.querySelector('[data-js~="todoForm"]'),
-    input,
-    noItemsMsg,
-    list;
-
 ;(function() {
+  var form = document.querySelector('[data-js~="todoForm"]'),
+      input,
+      noItemsMsg,
+      list;
   // add event listener to the submit action of the form
   form.addEventListener('keypress', addItem, false);
 

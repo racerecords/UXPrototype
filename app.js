@@ -2,34 +2,65 @@
   var form = document.querySelector('[data-js~="todoForm"]'),
       input,
       noItemsMsg,
-      list;
+      list,
+      content = [],
+      item = {},
+      arr;
   // add event listener to the submit action of the form
-  form.addEventListener('keypress', addItem, false);
+  form.addEventListener('keypress', getInput, false);
+
+  // TODO add ability to check track checked off items in local storage
+  // check for localStorage if content is truthy then load else nothing.
+  if (localStorage.content) {
+    // log storage found
+    console.log("localStorage found: " + localStorage.content)
+    // parse the content array
+    content = JSON.parse(localStorage.content);
+    console.log(content.uuid)
+    // loop through the array to add each item to the list
+    content.forEach(function (item, idx, arr) {
+      addItem(item.content, item.id);
+    });
+  } else {
+    // no storage
+    console.log("no localStorage")
+  }
 
 // add an item to the list
-function addItem(event) {
+function getInput(event) {
   // event.which, event.charCode, and event.keyCode all worked here
   if (event.keyCode === 13) {
     event.preventDefault();
     // get the value from the input
     input = document.querySelector('[data-js~="todoInput"]').value;
-    // if input is blank alert user else use input to add item to the list
-    if (input === "") {
-      alert("Input is blank. Vader will force choke you for this!")
-      }
-    else {
-      // get the li of the no items message and set it's display to none
-      noItemsMsg = document.querySelector('[data-js~="noItemsMsg"]')
-      noItemsMsg.style.display = "none";
-      // get the ul of the items list
-      list = document.querySelector('[data-js~="todoItems"]');
-      // make all the elements need for the list item by calling it's function
-      makeElements(input)
-      // reset the form so that it will be blank without user action
-      form.reset()
-      // make a list of buttons and give each an event listener by calling it's function
-      buttoner()
+    if (localStorage.content) {
+      content = JSON.parse(localStorage.content);
     }
+    item = {id:Math.random().toString(36).substr(2), content:input}
+    content.push(item)
+    localStorage.content = JSON.stringify(content);
+    addItem(input, item.id);
+  }
+}
+
+function addItem(content, id) {
+  console.log("addItem " + content);
+  // if input is blank alert user else use input to add item to the list
+  if (input === "") {
+    alert("Input is blank. Vader will force choke you for this!")
+    }
+  else {
+    // get the li of the no items message and set it's display to none
+    noItemsMsg = document.querySelector('[data-js~="noItemsMsg"]')
+    noItemsMsg.style.display = "none";
+    // get the ul of the items list
+    list = document.querySelector('[data-js~="todoItems"]');
+    // make all the elements need for the list item by calling it's function
+    makeElements(content, id)
+    // reset the form so that it will be blank without user action
+    form.reset()
+    // make a list of buttons and give each an event listener by calling it's function
+    buttoner()
   }
 }
 
@@ -46,19 +77,33 @@ function listen(item, indx, arr) {
 }
 
 // delete item on event
-function deleteItem(event) {
+function deleteItem(event, id) {
+  console.log("Removing " + this.previousSibling.innerHTML + " from the list.")
+
+  if (localStorage.content) {
+    var self = this
+    content = JSON.parse(localStorage.content);
+    content.forEach (function (item, idx, arr) {
+        if (item.id  === self.id) {
+          content.splice(idx, 1);
+        }else {
+          console.log("keeping id: " + item.id);
+        }
+    });
+    localStorage.content = JSON.stringify(content);
+  }
+  // get a list of todo items
+  list = document.getElementsByClassName("todo__item")
   // removes the li the clicked button is in
   this.parentNode.remove();
-  // get a list of todo items
-  item = document.getElementsByClassName("todo__item")
   // if the item list is empty display the no items message
-  if (item.length === 0) {
+  if (list.length === 0) {
     noItemsMsg.style.display = "inherit";
   }
 }
 
 // create all the elements needed for an item
-function makeElements(item) {
+function makeElements(item, id) {
 
   // create the li and set it's class
   var li        = document.createElement("li")
@@ -67,6 +112,7 @@ function makeElements(item) {
   // create the button.  Set it's class, innerHTML (x), and name
   var button        = document.createElement("button")
   button.className  = "todo__itemRemove"
+  button.id         = id
   button.innerHTML  = "&#x2717;"
   button.name       = item
 
@@ -75,12 +121,13 @@ function makeElements(item) {
   itemBox.type = "checkbox"
   itemBox.name = item
 
-  // create the label.  Set it's innerHTML
-  var label       = document.createElement("label")
-  label.innerHTML = item
+  // create the content.  Set it's innerHTML
+  var content       = document.createElement("p")
+  content.className = "todo__content"
+  content.innerHTML = item
 
   li.appendChild(itemBox)
-  li.appendChild(label)
+  li.appendChild(content)
   li.appendChild(button)
   list.appendChild(li)
 }

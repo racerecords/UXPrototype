@@ -51,6 +51,14 @@ body {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.todo input[type="checkbox"]:checked ~ label {
+.todo__content {
+  width: 150px;
+  display: inline-block;
+  margin: 0;
+}
+.todo input[type="checkbox"] {
+  transform: translate(0, -100%);
+}
+.todo input[type="checkbox"]:checked ~ p {
   text-decoration: line-through;
 }

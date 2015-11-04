@@ -39,6 +39,7 @@ body {
   list-style-type: none;
   padding: 0;
   margin: 10px 0;
+  word-wrap: break-word;
 }
 .todo__item {
   position: relative;
@@ -57,7 +58,7 @@ body {
   margin: 0;
 }
 .todo input[type="checkbox"] {
-  transform: translate(0, -100%);
+  vertical-align: top;
 }
 .todo input[type="checkbox"]:checked ~ p {
   text-decoration: line-through;

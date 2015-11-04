@@ -1,0 +1,11 @@
+# Site settings
+title: Darth's TODO
+email: stanalanmcm@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  Full stack web developer <br> CSS3 HTML5 Ruby on Rails Javascript PHP SQL
+baseurl: "/7.1-DTD" # the subpath of your site, e.g. /blog/
+url: "mcmillanator.github.io" # the base hostname & protocol for your site
+github_username:  mcmillanator
+
+# Build settings
+markdown: kramdown

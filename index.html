@@ -1,35 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="app.css" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="todo">
-      <h1>Darth's To-Do</h1>
-      <form action="" method="POST" data-js="todoForm">
-        <div>
-          <input class="todo__input" type="text" data-js="todoInput" placeholder="Enter task..." />
-        </div>
-        <ul class="todo__items" data-js="todoItems">
-          <li data-js="noItemsMsg">
-            There are currently no tasks.
-            <br />
-            Please enter an item in the field above.
-          </li>
-        </ul>
-      </form>
-    </div>
-    <script src="app.js" async></script>
-    <!-- google-analytics -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-67511397-1', 'auto');
-      ga('send', 'pageview');
+<head>
+  <link href="app.css" rel="stylesheet" />
+</head>
 
-    </script>
-  </body>
+<body>
+  <div>
+    <h1>Prototype Readings</h1>
+    <form action="" method="POST" data-js="todoForm">
+      <table>
+        <th>Number</th>
+        <th>Class</th>
+        <th>Readings</th>
+        <tr>
+          <td>
+            <input class="todo__input" type="text" data-id=1 data-js="numberInput" placeholder="042" />
+          </td>
+          <td>
+            <input class="todo__input" type="text" data-id=1 data-js="classInput" placeholder="042" />
+          </td>
+          <td>
+            <input class="todo__input" type="text" data-id=1 data-js="readingsInput" placeholder="042" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input class="todo__input" type="text" data-id=2 data-js="numberInput" placeholder="042" />
+          </td>
+          <td>
+            <input class="todo__input" type="text" data-id=2 data-js="classInput" placeholder="042" />
+          </td>
+          <td>
+            <input class="todo__input" type="text" data-id=2 data-js="readingsInput" placeholder="042" />
+          </td>
+        </tr>
+      </table>
+    </form>
+    <!--
+    <table class="todo__items" data-id=1 data-js="todoItems">
+      <th>Number</th>
+      <th>Class</th>
+      <th>Readings</th>
+      <tr data-id=1 data-js="noItemsMsg">
+        There are currently no records.
+        <br /> Please enter an item in the field above.
+      </tr>
+    </table>
+    -->
+  </div>
+  <script src="app.js" async></script>
+</body>
+
 </html>

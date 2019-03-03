@@ -2,7 +2,7 @@
   var form = document.querySelector('[data-js~="todoForm"]'),
       input,
       noItemsMsg,
-      list,
+      table,
       content = [],
       item = {},
       arr;
@@ -31,8 +31,18 @@ function getInput(event) {
   // event.which, event.charCode, and event.keyCode all worked here
   if (event.keyCode === 13) {
     event.preventDefault();
-    // get the value from the input
-    input = document.querySelector('[data-js~="todoInput"]').value;
+    if (event.target.attributes['data-js'].value == 'readingsInput') {
+      // continue to next row
+      var next = event.target.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild;
+      next.focus();
+      console.log('end of row');
+    } else {
+      // continue to next input on row
+      console.log('not end of row');
+      var next = event.target.parentElement.nextElementSibling.firstElementChild;
+      next.focus();
+    }
+    // save to local storage and attempt sync to server
     if (localStorage.content) {
       content = JSON.parse(localStorage.content);
     }
@@ -47,14 +57,14 @@ function addItem(content, id) {
   console.log("addItem " + content);
   // if input is blank alert user else use input to add item to the list
   if (input === "") {
-    alert("Input is blank. Vader will force choke you for this!")
+    alert("No input.")
     }
   else {
     // get the li of the no items message and set it's display to none
     noItemsMsg = document.querySelector('[data-js~="noItemsMsg"]')
     noItemsMsg.style.display = "none";
     // get the ul of the items list
-    list = document.querySelector('[data-js~="todoItems"]');
+    table = document.querySelector('[data-js~="todoItems"]');
     // make all the elements need for the list item by calling it's function
     makeElements(content, id)
     // reset the form so that it will be blank without user action
@@ -93,11 +103,11 @@ function deleteItem(event, id) {
     localStorage.content = JSON.stringify(content);
   }
   // get a list of todo items
-  list = document.getElementsByClassName("todo__item")
+  table = document.getElementsByClassName("todo__item")
   // removes the li the clicked button is in
   this.parentNode.remove();
   // if the item list is empty display the no items message
-  if (list.length === 0) {
+  if (table.length === 0) {
     noItemsMsg.style.display = "inherit";
   }
 }
@@ -105,9 +115,8 @@ function deleteItem(event, id) {
 // create all the elements needed for an item
 function makeElements(item, id) {
 
-  // create the li and set it's class
-  var li        = document.createElement("li")
-  li.className  = "todo__item"
+  var row = buildRow(item, id);
+  tr.className  = "todo__item"
 
   // create the button.  Set it's class, innerHTML (x), and name
   var button        = document.createElement("button")
@@ -122,13 +131,20 @@ function makeElements(item, id) {
   itemBox.name = item
 
   // create the content.  Set it's innerHTML
-  var content       = document.createElement("p")
+  var content       = document.createElement("td")
   content.className = "todo__content"
   content.innerHTML = item
 
-  li.appendChild(itemBox)
-  li.appendChild(content)
-  li.appendChild(button)
-  list.appendChild(li)
+  console.log('appending');
+  tr.appendChild(td).appendChild(itemBox)
+  tr.appendChild(content)
+  tr.appendChild(td).appendChild(button)
+  table.appendChild(tr)
+}
+
+function buildRow(item, id) {
+  var tr        = document.createElement("tr")
+  var td        = document.createElement("td")
+  return tr;
 }
 })();

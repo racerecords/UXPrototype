@@ -13,11 +13,9 @@ body {
 body {
   font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
   color: #4D4D4D;
-  background-image: url("1521964.jpg");
   background-size: 100%;
   background-position-x: 228px;
   background-repeat: no-repeat;
-  background-color: black;
 }
 .todo {
   width: 250px;
@@ -26,11 +24,19 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   background-color: #F5F5F5;
 }
+.todo__inputs {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  word-wrap: break-word;
+  li {
+    display: inline;
+  }
+}
 .todo__input {
   font-size: 1rem;
   line-height: 1.3rem;
   padding: 2px 5px;
-  width: 100%;
 }
 .todo__input:focus {
   outline: none;

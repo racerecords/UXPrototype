@@ -3,7 +3,7 @@
       input,
       noItemsMsg,
       table,
-      content = [],
+      localData = [],
       item = {},
       arr;
   // add event listener to the submit action of the form
@@ -15,10 +15,10 @@
     // log storage found
     console.log("localStorage found: " + localStorage.content)
     // parse the content array
-    content = JSON.parse(localStorage.content);
+    localData = JSON.parse(localStorage.content);
     console.log(content.uuid)
     // loop through the array to add each item to the list
-    content.forEach(function (item, idx, arr) {
+    localData.forEach(function (item, idx, arr) {
       addItem(item.content, item.id);
     });
   } else {
@@ -26,30 +26,52 @@
     console.log("no localStorage")
   }
 
+function getInputs() {
+  return document.getElementsByTagName('input');
+}
+function clearInputs() {
+  var inputs = getInputs();
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].value = null;
+  }
+}
+
+function setID() {
+  var id = Math.random().toString(36).substr(2);
+  $('input').each(function (idx, ele){
+    console.log('setting id')
+  });
+}
+
+function saveData(event) {
+  if (localStorage.localdata) {
+    localData = JSON.parse(localStorage.content);
+  }
+  var data = $('form').serializeArray();
+  localData.push(item)
+  localStorage.content = JSON.stringify(localData);
+//  addItem(data, item.id);
+}
 // add an item to the list
 function getInput(event) {
   // event.which, event.charCode, and event.keyCode all worked here
   if (event.keyCode === 13) {
     event.preventDefault();
-    if (event.target.attributes['data-js'].value == 'readingsInput') {
-      // continue to next row
-      var next = event.target.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild;
-      next.focus();
+    if (event.target.name == 'readingsInput') {
       console.log('end of row');
-    } else {
-      // continue to next input on row
-      console.log('not end of row');
-      var next = event.target.parentElement.nextElementSibling.firstElementChild;
+      // TODO save to local storage, clear inputs, then attempt to sync with server
+      var next = event.target.parentElement.parentElement.firstElementChild.lastElementChild
+      clearInputs();
       next.focus();
+      saveData(event);
+    } else {
+      // continue to next input
+      // TODO if number has already been entered pre-populate the class and skip to reading
+      console.log('not end of row');
+      var next = event.target.parentElement.nextElementSibling.lastElementChild;
+      next.focus();
+      saveData(event);
     }
-    // save to local storage and attempt sync to server
-    if (localStorage.content) {
-      content = JSON.parse(localStorage.content);
-    }
-    item = {id:Math.random().toString(36).substr(2), content:input}
-    content.push(item)
-    localStorage.content = JSON.stringify(content);
-    addItem(input, item.id);
   }
 }
 
@@ -116,7 +138,6 @@ function deleteItem(event, id) {
 function makeElements(item, id) {
 
   var row = buildRow(item, id);
-  tr.className  = "todo__item"
 
   // create the button.  Set it's class, innerHTML (x), and name
   var button        = document.createElement("button")

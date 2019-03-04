@@ -6,50 +6,35 @@
 </head>
 
 <body>
-  <div>
+  <div data-controller='input'>
     <h1>Prototype Readings</h1>
-    <form action="" method="POST" data-js="todoForm">
-      <table>
-        <th>Number</th>
-        <th>Class</th>
-        <th>Readings</th>
-        <tr>
-          <td>
-            <input class="todo__input" type="text" data-id=1 data-js="numberInput" placeholder="042" />
-          </td>
-          <td>
-            <input class="todo__input" type="text" data-id=1 data-js="classInput" placeholder="042" />
-          </td>
-          <td>
-            <input class="todo__input" type="text" data-id=1 data-js="readingsInput" placeholder="042" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input class="todo__input" type="text" data-id=2 data-js="numberInput" placeholder="042" />
-          </td>
-          <td>
-            <input class="todo__input" type="text" data-id=2 data-js="classInput" placeholder="042" />
-          </td>
-          <td>
-            <input class="todo__input" type="text" data-id=2 data-js="readingsInput" placeholder="042" />
-          </td>
-        </tr>
-      </table>
-    </form>
-    <!--
-    <table class="todo__items" data-id=1 data-js="todoItems">
+    <table class="todo__items"  data-js="todoItems" data-target="input.table">
       <th>Number</th>
       <th>Class</th>
       <th>Readings</th>
-      <tr data-id=1 data-js="noItemsMsg">
-        There are currently no records.
-        <br /> Please enter an item in the field above.
+      <tr  data-js="noItemsMsg">
+        No readings found.
       </tr>
     </table>
-    -->
+    <form action="" method="POST" data-js="todoForm" >
+        <ul class='todo__inputs'>
+          <li>
+            <label>Number</label>
+            <input class="todo__input" type="text" name="numberInput" placeholder="042" data-action="keypress->input#form" data-target='input.number' />
+          </li>
+          <li>
+            <label>Class</label>
+            <input class="todo__input" type="text"  name="classInput" placeholder="042" data-action="keypress->input#form" data-target='input.carClass' />
+          </li>
+          <li>
+            <label>Reading</label>
+            <input class="todo__input" type="text"  name="readingsInput" placeholder="042" data-action="keypress->input#form" data-target='input.reading' />
+          </li>
+        </ul>
+    </form>
   </div>
-  <script src="app.js" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="dist/main.js" async></script>
 </body>
 
 </html>

@@ -25,12 +25,16 @@ body {
   background-color: #F5F5F5;
 }
 .todo__inputs {
+  display: flex;
   list-style-type: none;
   padding: 0;
   margin: 10px 0;
   word-wrap: break-word;
+  label {
+    display: inline-flex;
+  }
   li {
-    display: inline;
+    display: inline-flex;
   }
 }
 .todo__input {

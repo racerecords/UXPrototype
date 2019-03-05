@@ -32,13 +32,24 @@ export default class extends Controller {
 
   updateRowChildren(tr) {
     var inputs = this.getTargets();
+    var self = this;
     for (var i = 0; i < tr.children.length; i++) {
         inputs.forEach(function (input){
-          if ( tr.children[i].dataset.name == input.name && input.value != '') {
-            tr.children[i].innerText = input.value
+          if ( tr.children[i].dataset.name == input.name && input.value != '' && input.value != 0) {
+            if (input.type == 'number') {
+              if (input.value < 0) {
+                var val = tr.children[i].innerText;
+                tr.children[i].innerText = val.replace(Math.abs(input.value), '');
+              } else {
+                tr.children[i].innerText += `   ${input.value}`;
+              }
+              self.clearInput(input);
+            } else {
+              tr.children[i].innerText = input.value;
+            }
           }
         });
-    };
+      }
     return tr;
   }
 
@@ -80,18 +91,16 @@ export default class extends Controller {
 
   clearInputs(inputs) {
     for (var i = 0; i < inputs.length; i++) {
-      inputs[i].value = null;
+      this.clearInput(inputs[i])
     }
-    this.assingNewID();
+  }
+
+  clearInput(input) {
+    input.value = null;
   }
 
   createID() {
     return Math.random().toString(36);
-  }
-
-  assingNewID() {
-    var id = this.createID();
-    this.data.set('id', id);
   }
 
   nextInput() {

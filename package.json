@@ -4,20 +4,23 @@
   "description": "7.1-DTD",
   "main": "app.js",
   "scripts": {
+    "start": "node server.js",
+    "build": "webpack",
+    "webpack": "webpack --watch ",
+    "browser-sync": "browser-sync start --server --files 'dist/**/*'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-core": "^6.26.3",
-    "stimulus": "^1.1.1"
-  },
-  "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "babel-loader": "^8.0.5",
+    "express": "^4.16.4",
+    "stimulus": "^1.1.1",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-middleware": "^3.4.0"
   }
 }

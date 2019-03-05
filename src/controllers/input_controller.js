@@ -1,69 +1,77 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ 'table', 'number', 'reading', 'carClass', 'tableRow' ]
-
-  initialize() {
-    this.data.set('id', this.createID());
-  }
+  static targets = [ 'table', 'tableRow', 'input', 'number' ]
 
   form() {
     if (event.keyCode === 13) {
       event.preventDefault();
+      this.data.set('id', this.numberTarget.value);
       this.tableRow()
       this.nextInput();
     }
   }
 
   getTargets() {
-    const number = this.numberTarget
-    const carClass = this.carClassTarget
-    const reading = this.readingTarget
-    return [number, carClass, reading]
+    return this.inputTargets;
   }
 
-  checkId() {
-    const id = this.data.get('id');
-    return this.tableRowTargets.findIndex(function(ele) { 
+  checkId(arr) {
+    var id = this.data.get('id');
+    // TODO change id to car number
+    return arr.findIndex(function(ele) { 
       return ele.dataset.id == id
     });
+  }
+
+  updateRow(idx) {
+    var table = this.tableTarget
+    var tr = this.tableRowTargets[idx];
+    tr = this.updateRowChildren(tr);
+    table.appendChild(tr);
+  }
+
+  updateRowChildren(tr) {
+    var inputs = this.getTargets();
+    for (var i = 0; i < tr.children.length; i++) {
+        inputs.forEach(function (input){
+          if ( tr.children[i].dataset.name == input.name && input.value != '') {
+            tr.children[i].innerText = input.value
+          }
+        });
+    };
+    return tr;
   }
 
   removeRowChildren(tr) {
     for (var i = 0; i <= tr.children.length+1; i++) {
       tr.removeChild(tr.children[0]);
     }
-    return this.addRowChildren(tr);
-  }
-
-  updateRow(idx) {
-    const table = this.tableTarget
-    const tr = this.tableRowTargets[idx];
-    const row = this.removeRowChildren(tr);
-    table.appendChild(row);
+    return tr;
   }
 
   addRowChildren(tr) {
-    const targets = this.getTargets();
-    for (var i = 0; i < targets.length; i++) {
-      const td = document.createElement('td');
-      td.innerHTML = targets[i].value
+    var inputs = this.getTargets();
+    for (var i = 0; i < inputs.length; i++) {
+      var td = document.createElement('td');
+      td.innerHTML = inputs[i].value;
+      td.dataset.name = inputs[i].name;
       tr.appendChild(td);
     }
     return tr;
   }
 
   newRow() {
-    const table = this.tableTarget
-    const tr = document.createElement('tr');
+    var table = this.tableTarget
+    var tr = document.createElement('tr');
     tr.dataset.target = 'input.tableRow';
     tr.dataset.id = this.data.get('id');
-    const row = this.addRowChildren(tr);
+    var row = this.addRowChildren(tr);
     table.appendChild(row);
   }
 
   tableRow() {
-    const idx = this.checkId();
+    var idx = this.checkId(this.tableRowTargets);
     if ( idx >= 0 ) {
       this.updateRow(idx);
     } else {
@@ -71,9 +79,9 @@ export default class extends Controller {
     }
   }
 
-  clearInputs(targets) {
-    for (var i = 0; i < targets.length; i++) {
-      targets[i].value = null;
+  clearInputs(inputs) {
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = null;
     }
     this.assingNewID();
   }
@@ -83,21 +91,21 @@ export default class extends Controller {
   }
 
   assingNewID() {
-    const id = this.createID();
+    var id = this.createID();
     this.data.set('id', id);
   }
 
   nextInput() {
     this.log(['Next input']);
-    const targets = this.getTargets();
-    const idx =targets.findIndex(function(ele) {
+    var inputs = this.getTargets();
+    var idx =inputs.findIndex(function(ele) {
       return ele == event.srcElement
     });
-    if (targets[idx+1] == undefined) {
-      targets[0].focus();
-      this.clearInputs(targets);
+    if (inputs[idx+1] == undefined) {
+      inputs[0].focus();
+      this.clearInputs(inputs);
     } else {
-      targets[idx+1].focus();
+      inputs[idx+1].focus();
     }
   }
 

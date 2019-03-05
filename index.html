@@ -10,8 +10,8 @@
     <h1>Prototype Readings</h1>
     <table class="todo__items"  data-js="todoItems" data-target="input.table">
       <th>Number</th>
-      <th>Class</th>
       <th>Readings</th>
+      <th>Class</th>
       <tr  data-js="noItemsMsg">
         No readings found.
       </tr>
@@ -20,15 +20,15 @@
         <ul class='todo__inputs'>
           <li>
             <label>Number</label>
-            <input class="todo__input" type="text" name="numberInput" placeholder="042" data-action="keypress->input#form" data-target='input.number' />
-          </li>
-          <li>
-            <label>Class</label>
-            <input class="todo__input" type="text"  name="classInput" placeholder="042" data-action="keypress->input#form" data-target='input.carClass' />
+            <input class="todo__input" type="text" name="numberInput" placeholder="042" data-action="keypress->input#form" data-target='input.number input.input' />
           </li>
           <li>
             <label>Reading</label>
-            <input class="todo__input" type="text"  name="readingsInput" placeholder="042" data-action="keypress->input#form" data-target='input.reading' />
+            <input class="todo__input" type="text"  name="readingsInput" placeholder="042" data-action="keypress->input#form" data-target='input.input' />
+          </li>
+          <li>
+            <label>Class</label>
+            <input class="todo__input" type="text"  name="classInput" placeholder="042" data-action="keypress->input#form" data-target='input.input' />
           </li>
         </ul>
     </form>

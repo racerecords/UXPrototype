@@ -4,4 +4,4 @@ COPY . /srv
 WORKDIR /srv
 RUN npm install && \
         npm run build
-CMD npm start
+CMD PORT=$PORT npm start

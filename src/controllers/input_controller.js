@@ -18,7 +18,6 @@ export default class extends Controller {
 
   checkId(arr) {
     var id = this.data.get('id');
-    // TODO change id to car number
     return arr.findIndex(function(ele) { 
       return ele.dataset.id == id
     });

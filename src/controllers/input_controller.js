@@ -8,6 +8,7 @@ export default class extends Controller {
       event.preventDefault();
       this.data.set('id', this.numberTarget.value);
       this.tableRow()
+      this.sortRows();
       this.nextInput();
     }
   }
@@ -87,6 +88,26 @@ export default class extends Controller {
     } else {
       this.newRow();
     }
+  }
+
+  sortRows() {
+    var table = this.tableTarget;
+    var rows = this.tableRowTargets;
+    rows.sort(function(a,b) {
+      var order
+      order = a.firstChild.innerText - b.firstChild.innerText;
+      if (order == 0) {
+        order = a.firstChild.innerText.length - b.firstChild.innerText.length;
+      }
+      return order
+    });
+    console.log('sorting');
+    rows.forEach(function (row) {
+      row.parentElement.removeChild(row);
+    });
+    rows.forEach(function (row) {
+      table.appendChild(row);
+    });
   }
 
   clearInputs(inputs) {

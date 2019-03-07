@@ -37,7 +37,7 @@ export default class extends Controller {
     for (var i = 0; i < tr.children.length; i++) {
         inputs.forEach(function (input){
           if ( tr.children[i].dataset.name == input.name && input.value != '' && input.value != 0) {
-            if (input.type == 'number') {
+            if (input.name == 'reading') {
               if (input.value < 0) {
                 var val = tr.children[i].innerText;
                 tr.children[i].innerText = val.replace(Math.abs(input.value), '');
